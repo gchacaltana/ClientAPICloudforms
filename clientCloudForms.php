@@ -1,3 +1,4 @@
+<?php
 /**
 * Client API to access CloudForms.
 * @author: Gonzalo Chacaltana Buleje <gchacaltanab@outlook.com>
@@ -26,14 +27,15 @@ $result = $client->call('FindVmByGuid', array("vmGuid" => "4cb6c43c-7241-11e3-80
 //Information hosts.
 $result = $client->call('GetHostList', array("emsGuid" => "*"));
 $result = $client->call('FindHostByGuid', array('hostGuid' => "429a8973-3841-11e3-802e-001a4a9105a3"));
+print_r($result);
 
 //Information clusters.
-//$result = $client->call('GetClusterList', array('emsGuid' => '*'));
-//$result = $client->call('FindClusterById', array('clusterId' => '1'));
+$result = $client->call('GetClusterList', array('emsGuid' => '*'));
+$result = $client->call('FindClusterById', array('clusterId' => '1'));
+print_r($result);
 
 //Information data stores.
-//$result = $client->call('GetDatastoreList', array('emsGuid'=>'*'));
-//$result = $client->call('FindDatastoreById', array('datastoreId'=>'18'));
-
+$result = $client->call('GetDatastoreList', array('emsGuid'=>'*'));
+$result = $client->call('FindDatastoreById', array('datastoreId'=>'18'));
 print_r($result);
 ?>
