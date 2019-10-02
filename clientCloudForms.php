@@ -21,12 +21,14 @@ if ($err) {
 }
 
 //Information VMs.
+$vm = "4cb6c43c-7241-11e3-802e-001a4a8405a3";
 $result = $client->call('GetVmList', array("hostGuid" => "*"));
-$result = $client->call('FindVmByGuid', array("vmGuid" => "4cb6c43c-7241-11e3-802e-001a4a8405a3"));
+$result = $client->call('FindVmByGuid', array("vmGuid" => $vm));
 
 //Information hosts.
+$host = "429a8973-3841-11e3-802e-001a4a9105a3";
 $result = $client->call('GetHostList', array("emsGuid" => "*"));
-$result = $client->call('FindHostByGuid', array('hostGuid' => "429a8973-3841-11e3-802e-001a4a9105a3"));
+$result = $client->call('FindHostByGuid', array('hostGuid' => $host));
 print_r($result);
 
 //Information clusters.
