@@ -51,11 +51,19 @@ class APIClientCloudForm {
     private $_response = array();
 
     public function __construct() {
+        $this->_loadEnv();
+        $this->_createConnect();
+    }
+
+    private function _loadEnv() {
         $dotenv = new Dotenv\Dotenv(__DIR__ . "/../env");
         $dotenv->load();
         $this->_urlWSDL = getenv('API_URL');
         $this->_user = getenv('API_USER_NAME');
         $this->_password = getenv('API_USER_PSW');
+    }
+
+    private function _createConnect() {
         $options = array(
             'trace' => 1,
             'exceptions' => 0,
@@ -64,6 +72,7 @@ class APIClientCloudForm {
             'login' => $this->_user,
             'password' => $this->_password
         );
+
         try {
             $this->_client = new soapClient($this->_urlWSDL, $options);
         } catch (SoapFault $ex) {
