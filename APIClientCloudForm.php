@@ -2,20 +2,60 @@
 
 /**
  * API Client to access CloudForms Framework (to access resources Data Center)
- * 
+ *
  * @author Gonzalo Chacaltana Buleje <gchacaltanab@gmail.com>
  * @version v1.2.0
  */
+require_once APPPATH . 'third_party/dotenv/autoloader.php';
+
 class APIClientCloudForm {
 
-    private $_urlWSDL = 'https://cloudforms.datacenter.pe/vmdbws/?wsdl';
-    private $_encoding = 'UTF-8';
-    private $_user = 'usr_name';
-    private $_password = 'pass_secure_dummy';
+    /**
+     *  @var string URL de API.
+     *  @access private
+     *  Valor obtenido de variable de entorno.
+     *  Ejemplo: https://cloudforms.datacenter.pe/vmdbws/?wsdl
+     */
+    private $_urlWSDL = NULL;
+
+    /**
+     * @var string nombre de usuario del API Cloudforms
+     * @access private
+     * Valor obtenido de variable de entorno.
+     */
+    private $_user = NULL;
+
+    /**
+     * @var string contraseña de usuario del API Cloudforms
+     * @access private
+     * Valor obtenido de variable de entorno.
+     */
+    private $_password = NULL;
+
+    /**
+     * @var object Instancia de conexión de SoapClient
+     * @access private
+     */
     private $_client = null;
+
+    /**
+     * @var string tipo de enconding
+     * @access private
+     */
+    private $_encoding = 'UTF-8';
+
+    /**
+     * @var array contiene array de información para devolver al consumidor.
+     * @access private
+     */
     private $_response = array();
 
     public function __construct() {
+        $dotenv = new Dotenv\Dotenv(__DIR__ . "/../env");
+        $dotenv->load();
+        $this->_urlWSDL = getenv('API_URL');
+        $this->_user = getenv('API_USER_NAME');
+        $this->_password = getenv('API_USER_PSW');
         $options = array(
             'trace' => 1,
             'exceptions' => 0,
